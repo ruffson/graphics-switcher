@@ -14,9 +14,9 @@
 
 PREVIOUS_USER=$1
 SCRIPT_NAME="20-intel.conf"
-CONF_BASE_PATH="/etc/X11/"
+CONF_BASE_PATH="/usr/share/X11/"
 CONF_BASE_DIR="xorg.conf.d"
-CONF_PATH="/etc/X11/$CONF_BASE_DIR/"
+CONF_PATH="$CONF_BASE_PATH$CONF_BASE_DIR/"
 CONF_FILE_PATH="$CONF_PATH$SCRIPT_NAME"
 CURRENT_VIDEO_CARD=""
 
@@ -81,7 +81,7 @@ function SetupEnvironment {
 
 function CheckForCurrentVideoCardInUse {
 	local _VIDEO_CARD=`glxinfo|egrep "OpenGL vendor|OpenGL renderer*"`
-	if [[ $_VIDEO_CARD == *"NVIDIA"* && $_VIDEO_CARD == *"GeForce"* ]]; then
+	if [[ $_VIDEO_CARD == *"NVIDIA"* && $_VIDEO_CARD == *"Quadro"* ]]; then
 		CURRENT_VIDEO_CARD="NVIDIA"
 	elif [[ $_VIDEO_CARD == *"Intel"* && $_VIDEO_CARD == *"Intel"* ]]; then
 		CURRENT_VIDEO_CARD="INTEL"
@@ -126,4 +126,3 @@ elif [ $CURRENT_VIDEO_CARD == "NVIDIA" ]; then
 else
 	ErrorHandler
 fi
-
